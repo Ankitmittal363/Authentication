@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,16 +31,17 @@ public class JwtService implements UserDetailsService {
 
     @Autowired
     private UserDao userDao;
-
-   @Autowired
+    
+   
     private  AuthenticationManager authenticationManager;
  
+    private final AuthenticationConfiguration authConfiguration = new AuthenticationConfiguration();
     
     @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return authenticationManager;
+    public AuthenticationManager authenticationManager() throws Exception {
+    	AuthenticationManager authenticationManager = authConfiguration.getAuthenticationManager();
+		return authenticationManager;
     }
-
     
     public JwtResponse createJwtToken(JwtRequest jwtRequest) throws Exception {
         String userName = jwtRequest.getUserName();
