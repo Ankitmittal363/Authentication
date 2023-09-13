@@ -31,11 +31,11 @@ public class JwtService implements UserDetailsService {
 
     @Autowired
     private UserDao userDao;
-    
-   
+	
+    @Autowired
     private  AuthenticationManager authenticationManager;
- 
-    private final AuthenticationConfiguration authConfiguration = new AuthenticationConfiguration();
+    @Autowired
+    private  AuthenticationConfiguration authConfiguration;
     
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
